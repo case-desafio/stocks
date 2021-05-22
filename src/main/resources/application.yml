@@ -34,4 +34,10 @@ feign.compression:
 stocks:
   url: 'https://mfinance.com.br/api/v1/stocks'
 
+logging:
+  level:
+    org:
+      springframework:
+        cache: TRACE
+
 

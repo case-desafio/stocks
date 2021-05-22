@@ -1,6 +1,7 @@
 package com.demo.stocks.entity;
 
 import com.demo.stocks.util.StringUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -192,6 +193,7 @@ public class Stocks implements Serializable {
         return Objects.hash(symbol);
     }
 
+    @JsonIgnore
     public boolean isValid() {
         return StringUtils.isNotBlank(symbol);
     }
