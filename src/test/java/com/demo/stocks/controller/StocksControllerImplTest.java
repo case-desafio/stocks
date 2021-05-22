@@ -1,5 +1,6 @@
 package com.demo.stocks.controller;
 
+import com.demo.stocks.config.ExceptionAdviceConfiguration;
 import com.demo.stocks.controller.impl.StocksControllerImpl;
 import com.demo.stocks.entity.Stocks;
 import com.demo.stocks.entity.StocksWrapper;
@@ -27,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class StocksControllerImplTest {
 
     private static final String CONTEXT_PATH = "/stocks";
@@ -43,7 +44,10 @@ public class StocksControllerImplTest {
 
     @BeforeEach
     public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(stocksController).build();
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(stocksController)
+                .setControllerAdvice(new ExceptionAdviceConfiguration())
+                .build();
     }
 
     @Test

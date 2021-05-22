@@ -28,9 +28,12 @@ management:
 server:
   servlet:
     context-path: /stocks
+
 feign.compression:
   request.enabled: true
   response.enabled: true
+
 stocks:
   url: 'https://mfinance.com.br/api/v1/stocks'
+
 
