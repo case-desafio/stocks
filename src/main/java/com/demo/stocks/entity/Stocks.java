@@ -2,9 +2,10 @@ package com.demo.stocks.entity;
 
 import com.demo.stocks.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Stocks {
+public class Stocks implements Serializable {
     private String symbol;
     private Double change;
     private Double closingPrice;

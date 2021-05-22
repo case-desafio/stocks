@@ -2,13 +2,11 @@ spring:
   cloud:
     application:
       name: stocks
-  redis:
-    database: ${REDIS_DATABASE_INDEX:0}
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6379}
-    timeout: ${REDIS_TIMEOUT:60000}
   cache:
+    type: redis
     redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
       time-to-live: ${CACHE_EXPIRATION:60000}
 info:
   app:

@@ -29,7 +29,9 @@ public class StocksControllerImpl implements StocksController {
     public List<Stocks> findAll() {
         try {
             log.info("Buscando cotação de todas as ações");
-            return stocksClient.findAll().getStocks();
+            var stocks = stocksClient.findAll().getStocks();
+            log.info("Obtidas {} cotações", stocks.size());
+            return stocks;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
@@ -41,14 +43,14 @@ public class StocksControllerImpl implements StocksController {
             throw new IllegalArgumentException("Ticker não informado");
         }
 
-        log.info("Buscando cotação do ticker [" + ticker + "]");
+        log.info("Buscando cotação do ticker {}", ticker);
         var stocksResponse= stocksClient.findByTicker(ticker);
 
         if (!stocksResponse.isValid()) {
-            log.info("Nenhuma cotação encontrada para o ticker [" + ticker + "]");
+            log.info("Nenhuma cotação encontrada para o ticker {}", ticker);
             throw new StockNotFoundException(ticker);
         }
-        log.info("Retornando cotação do ticker [" + ticker + "]");
+        log.info("Retornando cotação do ticker {}", ticker);
         return stocksResponse;
     }
 
