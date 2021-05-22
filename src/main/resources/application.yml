@@ -1,0 +1,36 @@
+spring:
+  cloud:
+    application:
+      name: stocks
+  redis:
+    database: ${REDIS_DATABASE_INDEX:0}
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    timeout: ${REDIS_TIMEOUT:60000}
+  cache:
+    redis:
+      time-to-live: ${CACHE_EXPIRATION:60000}
+info:
+  app:
+    name: stocks
+    description: Stocks spring boot
+management:
+  endpoint:
+    metrics:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info,health,prometheus,metrics
+  health:
+    probes:
+      enabled: true
+server:
+  servlet:
+    context-path: /stocks
+feign.compression:
+  request.enabled: true
+  response.enabled: true
+stocks:
+  url: 'https://mfinance.com.br/api/v1/stocks'
+
