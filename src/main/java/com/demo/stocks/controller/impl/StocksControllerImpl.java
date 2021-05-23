@@ -5,6 +5,7 @@ import com.demo.stocks.controller.StocksController;
 import com.demo.stocks.entity.Stocks;
 import com.demo.stocks.exceptions.StockNotFoundException;
 import com.demo.stocks.util.StringUtils;
+import feign.FeignException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@RequestMapping("/")
 @RestController
+@RequestMapping("/")
 public class StocksControllerImpl implements StocksController {
 
     private static final Logger log =
@@ -46,14 +47,19 @@ public class StocksControllerImpl implements StocksController {
         }
 
         log.info("Buscando cotação do ticker {}", ticker);
-        var stocksResponse= stocksClient.findByTicker(ticker);
+        try {
+            var stocksResponse = stocksClient.findByTicker(ticker);
 
-        if (!stocksResponse.isValid()) {
-            log.info("Nenhuma cotação encontrada para o ticker {}", ticker);
-            throw new StockNotFoundException(ticker);
+            if (!stocksResponse.isValid()) {
+                log.info("Nenhuma cotação encontrada para o ticker {}", ticker);
+                throw new StockNotFoundException(ticker);
+            }
+            log.info("Retornando cotação do ticker {}", ticker);
+
+            return stocksResponse;
+        } catch (FeignException.FeignClientException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
-        log.info("Retornando cotação do ticker {}", ticker);
-        return stocksResponse;
     }
 
 }

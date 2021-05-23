@@ -2,11 +2,12 @@ spring:
   cloud:
     application:
       name: stocks
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    timeout: ${REDIS_TIMEOUT:60000}
   cache:
-    type: redis
     redis:
-      host: ${REDIS_HOST:localhost}
-      port: ${REDIS_PORT:6379}
       time-to-live: ${CACHE_EXPIRATION:60000}
 info:
   app:
@@ -28,7 +29,7 @@ feign.compression:
   response.enabled: true
 
 stocks:
-  url: 'https://mfinance.com.br/api/v1/stocks'
+  api-uri: ${STOCKS_API_URI:https://mfinance.com.br/api/v1/stocks}
 
 logging:
   level:
@@ -36,4 +37,7 @@ logging:
       springframework:
         cache: TRACE
 
+retry:
+  maxAttempts: ${RETRY_MAX_ATTEMPTS:3}
+  maxDelay: ${RETRY_MAX_DELAY:3000}
 
