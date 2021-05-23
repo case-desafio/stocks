@@ -10,15 +10,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.List;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -26,13 +26,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.List;
-
 @ExtendWith(MockitoExtension.class)
 public class StocksControllerImplTest {
 
-    private static final String CONTEXT_PATH = "/stocks";
-    private static final String URI_PATH = CONTEXT_PATH + "/";
+    private static final String URI_PATH = "/";
 
     @InjectMocks
     private StocksControllerImpl stocksController;
@@ -69,7 +66,6 @@ public class StocksControllerImplTest {
         when(stocksClient.findAll()).thenReturn(stocksWrapper);
 
         mockMvc.perform(get(URI_PATH)
-                .contextPath(CONTEXT_PATH)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].symbol", is(equalTo(BBAS3))))
@@ -86,7 +82,6 @@ public class StocksControllerImplTest {
         when(stocksClient.findByTicker(BBAS3)).thenReturn(bbas3Ticker);
 
         mockMvc.perform(get(URI_PATH + "{ticker}", BBAS3)
-                .contextPath(CONTEXT_PATH)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.symbol", is(equalTo(BBAS3))));
@@ -99,7 +94,6 @@ public class StocksControllerImplTest {
         when(stocksClient.findByTicker(any())).thenReturn(new Stocks());
 
         mockMvc.perform(get(URI_PATH + "{ticker}", ticker)
-                .contextPath(CONTEXT_PATH)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof StockNotFoundException));
