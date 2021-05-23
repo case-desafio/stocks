@@ -10,8 +10,7 @@ public class StocksTest {
 
     @Test
     public void returnedIsValidStocksWhenTickerIsNotNull() {
-        var stocks = new Stocks();
-        stocks.setSymbol("ITUB3");
+        var stocks = new Stocks("ITUB3");
 
         var isValid = stocks.isValid();
         Assertions.assertTrue(isValid);

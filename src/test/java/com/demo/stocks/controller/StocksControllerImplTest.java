@@ -52,11 +52,8 @@ public class StocksControllerImplTest {
         final String BBAS3 = "BBAS3";
         final String ITSA4 = "ITSA4";
 
-        var bbas3Ticker = new Stocks();
-        bbas3Ticker.setSymbol(BBAS3);
-
-        var itsa4Ticker = new Stocks();
-        itsa4Ticker.setSymbol(ITSA4);
+        var bbas3Ticker = new Stocks(BBAS3);
+        var itsa4Ticker = new Stocks(ITSA4);
 
         var stocksWrapper = new StocksWrapper(List.of(
                 bbas3Ticker,
@@ -76,8 +73,7 @@ public class StocksControllerImplTest {
     public void returnedOkStatusWhenGetWithTickerIsCalled() throws Exception {
         final String BBAS3 = "BBAS3";
 
-        var bbas3Ticker = new Stocks();
-        bbas3Ticker.setSymbol(BBAS3);
+        var bbas3Ticker = new Stocks(BBAS3);
 
         when(stocksClient.findByTicker(BBAS3)).thenReturn(bbas3Ticker);
 

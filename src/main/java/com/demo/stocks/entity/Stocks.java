@@ -2,11 +2,17 @@ package com.demo.stocks.entity;
 
 import com.demo.stocks.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.NonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Stocks implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private String symbol;
     private Double change;
     private Double closingPrice;
@@ -34,6 +40,22 @@ public class Stocks implements Serializable {
                 ", change=" + change +
                 ", lastPrice=" + lastPrice +
                 '}';
+    }
+
+    @Deprecated
+    public Stocks() {
+    }
+
+    public Stocks(@NonNull String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
     public Double getChange() {
@@ -130,14 +152,6 @@ public class Stocks implements Serializable {
 
     public void setShares(Long shares) {
         this.shares = shares;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
     }
 
     public Long getVolume() {
