@@ -8,11 +8,13 @@ import com.demo.stocks.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@RequestMapping("/")
 @RestController
 public class StocksControllerImpl implements StocksController {
 

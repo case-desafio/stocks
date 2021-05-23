@@ -23,10 +23,6 @@ management:
   health:
     probes:
       enabled: true
-server:
-  servlet:
-    context-path: /stocks
-
 feign.compression:
   request.enabled: true
   response.enabled: true
