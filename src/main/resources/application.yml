@@ -1,11 +1,8 @@
 server:
   port: ${APP_PORT:8080}
-  servlet:
-    context-path: /stocks
 spring:
-  cloud:
-    application:
-      name: stocks
+  application:
+    name: stocks
   redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
@@ -18,16 +15,14 @@ info:
     name: stocks
     description: Stocks spring boot
 management:
-  endpoint:
-    metrics:
-      enabled: true
   endpoints:
     web:
       exposure:
-        include: info,health,prometheus,metrics
+        include: info, health, prometheus, metrics
   health:
     probes:
       enabled: true
+
 feign.compression:
   request.enabled: true
   response.enabled: true
