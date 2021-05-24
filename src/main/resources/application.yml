@@ -18,11 +18,22 @@ management:
   endpoints:
     web:
       exposure:
-        include: info, health, prometheus, metrics
-  health:
-    probes:
-      enabled: true
-
+        include: '*'
+      base-path: /actuator
+      cors:
+        allowed-origins: 'true'
+    enabled-by-default: 'false'
+    jmx:
+      exposure:
+        include: '*'
+  endpoint:
+    prometheus:
+      enabled: 'true'
+    health:
+      enabled: 'true'
+      show-details: always
+    info:
+      enabled: 'true'
 feign.compression:
   request.enabled: true
   response.enabled: true
