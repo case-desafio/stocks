@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class ActuatorMetricsConfig {
 
     @Bean
-    InitializingBean forcePrometheusPostProcessor(BeanPostProcessor meterRegistryPostProcessor, PrometheusMeterRegistry registry) {
+    public InitializingBean forcePrometheusPostProcessor(BeanPostProcessor meterRegistryPostProcessor, PrometheusMeterRegistry registry) {
         return () -> meterRegistryPostProcessor.postProcessAfterInitialization(registry, "");
     }
 
